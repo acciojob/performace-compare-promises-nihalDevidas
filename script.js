@@ -33,24 +33,22 @@ function fetchBy(fetchByAll){
 	.catch((error)=>{
 		console.log("failed to load data");
 	})
-	return 1;
 }
 
 
 
 let start = performance.now();
-let op1 = fetchBy(true);
+fetchBy(true);
 timeTakenAll = performance.now()-start;
-if(op1){
-	allTd.innerText = timeTakenAll;
-}
 
 
 let start1 = performance.now();
-let op2 = fetchBy(false);
+fetchBy(false);
 timeTakenAny = performance.now()-start1;
 
-if(op2){
-  anyTd.innerText = timeTakenAny;
-}
+setTimeout(()=>{
+	allTd.innerText = timeTakenAll;
+    anyTd.innerText = timeTakenAny;
+},2000);
+
 
