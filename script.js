@@ -13,3 +13,39 @@ const apiUrls = [
 ];
 
 // You can write your code here
+let timeTakenAll;
+let timeTakenAny;
+const allTd = document.getElementById("output-all");
+const anyTd = document.getElementById("output-any");
+
+let promisrArr = [];
+	for(let i=0; i< apiUrls.length; i++){
+		let prom = fetch(apiUrls[i]);
+		promisrArr.push(prom);
+	}
+
+function fetchBy(fetchByAll){
+	
+	let result =fetchByAll ? Promise.all(promisrArr) : Promise.any(promisrArr);
+	    result.then(()=>{
+			console.log("data fetch success");
+		})
+	.catch((error)=>{
+		console.log("failed to load data");
+	})
+}
+
+
+
+let start = performance.now();
+fetchBy(true);
+timeTakenAll = performance.now()-start;
+
+
+let start1 = performance.now();
+fetchBy(false);
+timeTakenAny = performance.now()-start1;
+
+allTd.innerText = timeTakenAll;
+anyTd.innerText = timeTakenAny;
+
